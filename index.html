@@ -710,7 +710,7 @@
   // 打开一次之后，就算对方的电脑关机 / 断网，她也能继续点（离线缓存）
   if ('serviceWorker' in navigator && /^https:$/.test(location.protocol)) {
     try {
-      navigator.serviceWorker.register('/sw.js').catch(function () {});
+      navigator.serviceWorker.register('sw.js').catch(function () {});
     } catch (e) {}
   }
 
