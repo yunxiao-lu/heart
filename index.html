@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#180410">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="卢东逸送给唐千惠的一颗心，每点一下，就记下她想他的一次。">
+<title>卢东逸送给唐千惠的一颗心 ♡</title>
+<style>
+  :root{
+    --rose:#ff3f6f;
+    --rose-2:#ff7fa5;
+    --rose-3:#ffb9cb;
+    --gold:#ffd9a8;
+    --ink:#ffeef3;
+    --muted:rgba(255,214,226,.55);
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",Georgia,serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;height:100%}
+  body{
+    background:#120309;
+    color:var(--ink);
+    font-family:"PingFang SC","HarmonyOS Sans SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    overflow:hidden;overscroll-behavior:none;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select:none;user-select:none;
+    touch-action:manipulation;
+  }
+
+  /* ---------- 背景 ---------- */
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;
+      background:radial-gradient(125% 95% at 50% -5%, #5a0f2c 0%, #33091b 40%, #15030b 100%);}
+  .bg i{position:absolute;border-radius:50%;display:block;will-change:opacity,transform}
+  .bg .a1{width:86vw;height:86vw;left:-30vw;top:-12vh;
+          background:radial-gradient(circle,rgba(255,47,102,.55),rgba(255,47,102,0) 66%);
+          animation:drift1 17s ease-in-out infinite alternate}
+  .bg .a2{width:74vw;height:74vw;right:-28vw;top:26vh;
+          background:radial-gradient(circle,rgba(150,40,160,.5),rgba(150,40,160,0) 66%);
+          animation:drift2 21s ease-in-out infinite alternate}
+  .bg .a3{width:96vw;height:60vw;left:-8vw;bottom:-24vh;
+          background:radial-gradient(circle,rgba(255,140,80,.3),rgba(255,140,80,0) 66%);
+          animation:drift3 25s ease-in-out infinite alternate}
+  .bg .vig{inset:0;border-radius:0;
+           background:radial-gradient(72% 55% at 50% 44%,rgba(0,0,0,0) 38%,rgba(6,0,4,.72) 100%)}
+  @keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(6vw,4vh,0) scale(1.12)}}
+  @keyframes drift2{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(-7vw,-5vh,0) scale(.95)}}
+  @keyframes drift3{from{transform:translate3d(0,0,0)}to{transform:translate3d(4vw,-6vh,0)}}
+
+  .flash{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;
+         background:radial-gradient(circle at 50% 52%,rgba(255,120,160,.5),rgba(255,60,110,0) 55%)}
+  .flash.on{animation:flash .55s ease-out}
+  @keyframes flash{0%{opacity:.0}18%{opacity:.85}100%{opacity:0}}
+
+  /* ---------- 飘浮的心 ---------- */
+  .hearts{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .fh{position:absolute;bottom:-8vh;line-height:1;will-change:transform,opacity;
+      color:rgba(255,150,180,.55);animation:rise linear infinite;text-shadow:0 0 12px rgba(255,60,110,.5)}
+  @keyframes rise{
+    0%{transform:translate3d(0,0,0) rotate(-8deg);opacity:0}
+    12%{opacity:.85}
+    70%{opacity:.5}
+    100%{transform:translate3d(var(--sway,18px),-118vh,0) rotate(18deg);opacity:0}
+  }
+
+  /* ---------- 主舞台 ---------- */
+  main{position:relative;z-index:2;height:100vh;height:100dvh;display:flex;flex-direction:column;
+       padding:calc(env(safe-area-inset-top,0px) + 16px) 22px calc(env(safe-area-inset-bottom,0px) + 18px);}
+
+  .head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px}
+  .names{font-family:var(--serif);font-size:15px;letter-spacing:.16em;color:#ffdbe4;opacity:.92}
+  .names .amp{color:var(--rose);font-style:normal;margin:0 7px;text-shadow:0 0 14px rgba(255,63,111,.8)}
+  .sound{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,214,226,.22);
+         background:rgba(255,255,255,.05);color:rgba(255,214,226,.6);font-size:14px;line-height:1;
+         display:grid;place-items:center;transition:.25s}
+  .sound.on{color:#fff0f4;border-color:rgba(255,120,160,.7);background:rgba(255,63,111,.2);
+            box-shadow:0 0 18px rgba(255,63,111,.5)}
+
+  .count-block{margin-top:26px;text-align:center}
+  .count-label{margin:0 0 8px;font-size:12px;letter-spacing:.3em;color:var(--muted)}
+  .count{display:flex;align-items:flex-start;justify-content:center;gap:7px;line-height:1}
+  .count b{font-family:var(--serif);font-weight:600;font-size:clamp(50px,15vw,74px);
+           background:linear-gradient(180deg,#fff7f9 0%,#ffc2d3 52%,#ff5f8d 100%);
+           -webkit-background-clip:text;background-clip:text;color:transparent;
+           filter:drop-shadow(0 6px 22px rgba(255,60,110,.45));
+           transform-origin:50% 60%}
+  .count b.bump{animation:bump .38s cubic-bezier(.2,1.6,.35,1)}
+  @keyframes bump{0%{transform:scale(1)}38%{transform:scale(1.16)}100%{transform:scale(1)}}
+  .count em{font-style:normal;font-size:14px;margin-top:16px;color:rgba(255,214,226,.72);letter-spacing:.1em}
+  .count-sub{margin:6px 0 0;font-size:11.5px;letter-spacing:.1em;color:rgba(255,214,226,.42);
+             font-variant-numeric:tabular-nums}
+
+  .heart-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+  .heart-wrap{position:relative;width:min(60vw,268px);aspect-ratio:1/.96;display:grid;place-items:center}
+  .heart-wrap.pop{animation:pop .46s cubic-bezier(.2,1.5,.4,1)}
+  @keyframes pop{0%{transform:scale(1)}30%{transform:scale(.9)}62%{transform:scale(1.055)}100%{transform:scale(1)}}
+
+  .halo{position:absolute;inset:-22%;border-radius:50%;pointer-events:none;
+        background:radial-gradient(circle,rgba(255,63,111,.5) 0%,rgba(255,63,111,.16) 42%,rgba(255,63,111,0) 70%);
+        animation:halo 2.6s ease-in-out infinite}
+  @keyframes halo{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:.95;transform:scale(1.06)}}
+
+  .heart-btn{position:relative;width:100%;height:100%;padding:0;border:0;background:none;
+             display:block;cursor:pointer;transition:transform .14s ease;
+             filter:drop-shadow(0 18px 36px rgba(255,30,90,.45)) drop-shadow(0 0 54px rgba(255,60,110,.3))}
+  .heart-btn:active{transform:scale(.945)}
+  .heart-btn svg{display:block;width:100%;height:auto;transform-origin:50% 46%;
+                 animation:beat 1.75s ease-in-out infinite}
+  @keyframes beat{
+    0%,100%{transform:scale(1)}
+    11%{transform:scale(1.08)}
+    22%{transform:scale(.992)}
+    33%{transform:scale(1.05)}
+    48%{transform:scale(1)}
+  }
+
+  .hint{margin:2px 0 0;font-size:13px;letter-spacing:.18em;color:rgba(255,214,226,.6);text-align:center}
+  .hint span{display:inline-block;animation:breath 2.8s ease-in-out infinite}
+  @keyframes breath{0%,100%{opacity:.55}50%{opacity:1}}
+
+  .foot{display:flex;flex-direction:column;align-items:center;gap:9px}
+  .rec-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 21px;border-radius:999px;
+           border:1px solid rgba(255,214,226,.24);background:rgba(255,255,255,.07);
+           -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+           color:#ffe7ee;font-size:13.5px;letter-spacing:.14em;
+           box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 26px -14px rgba(0,0,0,.9);
+           transition:transform .18s ease,background .2s}
+  .rec-btn:active{transform:scale(.97);background:rgba(255,255,255,.13)}
+  .rec-btn b{font-weight:600;font-size:12px;min-width:22px;height:22px;padding:0 7px;border-radius:999px;
+             display:grid;place-items:center;background:rgba(255,63,111,.35);color:#fff;
+             font-variant-numeric:tabular-nums;letter-spacing:0}
+  .byline{margin:0;font-size:10.5px;letter-spacing:.24em;color:rgba(255,214,226,.32)}
+
+  /* ---------- 打开前的卡片 ---------- */
+  .intro{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;
+         padding:24px;overflow:hidden;
+         background:radial-gradient(120% 90% at 50% 0%,#430b21,#190410 70%);
+         transition:opacity .6s ease,transform .6s ease}
+  .intro::before,.intro::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+  .intro::before{width:88vw;height:88vw;left:-32vw;top:-16vh;
+                 background:radial-gradient(circle,rgba(255,47,102,.45),rgba(255,47,102,0) 64%)}
+  .intro::after{width:70vw;height:70vw;right:-26vw;bottom:-12vh;
+                background:radial-gradient(circle,rgba(150,40,160,.4),rgba(150,40,160,0) 64%)}
+  .intro.gone{opacity:0;transform:scale(1.07);pointer-events:none}
+  .card{position:relative;z-index:1;width:min(86vw,372px);padding:32px 26px 26px;border-radius:30px;text-align:center;
+        background:linear-gradient(158deg,rgba(255,255,255,.14),rgba(255,255,255,.035));
+        border:1px solid rgba(255,214,226,.28);
+        box-shadow:0 34px 80px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.28);
+        -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+        animation:cardIn .95s cubic-bezier(.2,.9,.25,1) both}
+  @keyframes cardIn{from{opacity:0;transform:translateY(26px) scale(.94)}to{opacity:1;transform:none}}
+
+  .seal{width:66px;height:66px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;
+        font-family:var(--serif);font-size:26px;color:#5a0a1f;position:relative;
+        background:linear-gradient(145deg,#ffe9c2,#ffc78f 40%,#e8a266);
+        box-shadow:0 10px 26px -8px rgba(255,170,120,.8),inset 0 -3px 8px rgba(150,70,30,.35);
+        animation:sealBeat 2.4s ease-in-out infinite}
+  .seal::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px dashed rgba(120,45,15,.45)}
+  @keyframes sealBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+  .to{margin:0;font-size:10.5px;letter-spacing:.34em;color:rgba(255,222,232,.62)}
+  .to b{color:#ffd3e0;font-weight:500}
+  .card h1{margin:12px 0 10px;font-family:var(--serif);font-weight:600;font-size:29px;line-height:1.35;
+           letter-spacing:.06em;
+           background:linear-gradient(180deg,#fff8fa,#ffc6d5 60%,#ff87ab);
+           -webkit-background-clip:text;background-clip:text;color:transparent}
+  .card p.sub{margin:0;font-size:13px;line-height:2;color:rgba(255,222,232,.72);letter-spacing:.05em}
+  .btn{margin-top:22px;width:100%;padding:15px 18px;border:0;border-radius:999px;
+       font-family:inherit;font-size:16px;font-weight:600;letter-spacing:.12em;color:#56061c;
+       background:linear-gradient(135deg,#ffe4bd,#ffb6c8 52%,#ff8db1);
+       box-shadow:0 16px 34px -12px rgba(255,120,160,.85),inset 0 1px 0 rgba(255,255,255,.85);
+       animation:btnGlow 2.8s ease-in-out infinite;transition:transform .16s ease}
+  .btn:active{transform:scale(.975)}
+  @keyframes btnGlow{0%,100%{box-shadow:0 16px 34px -12px rgba(255,120,160,.8),inset 0 1px 0 rgba(255,255,255,.85)}
+                     50%{box-shadow:0 20px 46px -12px rgba(255,120,160,1),inset 0 1px 0 rgba(255,255,255,.95)}}
+
+  .stage{flex:1;display:flex;flex-direction:column;opacity:0;transition:opacity .7s ease .1s}
+  .stage.show{opacity:1}
+
+  /* ---------- 提示条 ---------- */
+  .toast{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 104px);z-index:30;
+         margin:0 auto;width:-webkit-max-content;width:max-content;
+         transform:translateY(16px);opacity:0;pointer-events:none;
+         max-width:86vw;padding:12px 20px;border-radius:20px;text-align:center;line-height:1.7;
+         font-size:13px;letter-spacing:.05em;color:#ffeaf0;
+         background:rgba(52,8,26,.92);border:1px solid rgba(255,160,190,.42);
+         box-shadow:0 20px 44px -14px rgba(0,0,0,.9),0 0 30px rgba(255,63,111,.25);
+         transition:opacity .34s ease,transform .34s ease}
+  .toast.on{opacity:1;transform:translateY(0)}
+  .toast b{color:#ffb9cb;font-weight:600}
+  .toast .poem{display:block;margin-top:3px;font-family:var(--serif);font-size:12.5px;
+               color:rgba(255,214,226,.8);letter-spacing:.08em}
+
+  /* ---------- 记录抽屉 ---------- */
+  .mask{position:fixed;inset:0;z-index:40;background:rgba(8,1,6,.62);
+        -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+        opacity:0;pointer-events:none;transition:opacity .36s ease}
+  .mask.on{opacity:1;pointer-events:auto}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:82vh;max-height:82dvh;
+         display:flex;flex-direction:column;border-radius:28px 28px 0 0;
+         background:linear-gradient(180deg,#33081c,#1b0410 78%);
+         border-top:1px solid rgba(255,190,210,.34);
+         box-shadow:0 -24px 70px rgba(0,0,0,.72);
+         transform:translateY(103%);transition:transform .44s cubic-bezier(.2,.92,.25,1);
+         padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6px)}
+  .sheet.on{transform:translateY(0)}
+  .grab{width:38px;height:4px;border-radius:9px;background:rgba(255,214,226,.28);margin:10px auto 0}
+  .sheet-head{display:flex;align-items:baseline;justify-content:space-between;padding:16px 22px 4px}
+  .sheet-head h2{margin:0;font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.12em;
+                 color:#ffeaf0}
+  .sheet-head span{font-size:11px;letter-spacing:.18em;color:rgba(255,214,226,.42)}
+  .close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,214,226,.2);
+         background:rgba(255,255,255,.06);color:rgba(255,222,232,.8);font-size:14px;line-height:1;
+         display:grid;place-items:center;flex:none;align-self:center}
+  .stats{display:flex;gap:8px;margin:14px 20px 10px}
+  .stat{flex:1;padding:12px 8px;border-radius:16px;text-align:center;
+        background:rgba(255,255,255,.055);border:1px solid rgba(255,214,226,.12)}
+  .stat b{display:block;font-family:var(--serif);font-size:21px;font-weight:600;color:#ffd6e1;
+          font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:3px;font-size:10px;letter-spacing:.16em;color:rgba(255,214,226,.45)}
+  .list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 22px 22px;
+        overscroll-behavior:contain}
+  .day{position:sticky;top:0;z-index:1;display:flex;align-items:baseline;gap:9px;
+       padding:12px 0 6px;background:linear-gradient(180deg,#280617 72%,rgba(40,6,23,0));
+       font-size:12px;letter-spacing:.14em;color:rgba(255,214,226,.62)}
+  .day em{font-style:normal;font-size:10.5px;letter-spacing:.06em;color:rgba(255,63,111,.95)}
+  .rec{display:flex;align-items:center;gap:11px;padding:11px 2px;
+       border-bottom:1px solid rgba(255,255,255,.055)}
+  .rec .dot{width:6px;height:6px;border-radius:50%;flex:none;
+            background:linear-gradient(#ffc2d4,#ff2f66);box-shadow:0 0 9px rgba(255,47,102,.9)}
+  .rec .t{font-size:15px;letter-spacing:.09em;font-variant-numeric:tabular-nums;color:#ffe4ec}
+  .rec .i{margin-left:auto;font-size:10.5px;letter-spacing:.1em;color:rgba(255,214,226,.34)}
+  .empty{padding:46px 12px;text-align:center;color:rgba(255,214,226,.45);font-size:13px;line-height:2.1}
+  .empty b{display:block;font-size:30px;margin-bottom:10px;opacity:.55;animation:sealBeat 2.4s ease-in-out infinite}
+  .sheet-foot{padding:12px 22px 16px;text-align:center;font-size:11px;letter-spacing:.22em;
+              color:rgba(255,214,226,.38);border-top:1px solid rgba(255,255,255,.05)}
+
+  /* ---------- 粒子 ---------- */
+  .spark{position:absolute;left:50%;top:50%;width:var(--sz,7px);height:var(--sz,7px);border-radius:50%;
+         pointer-events:none;will-change:transform,opacity;
+         background:radial-gradient(circle at 32% 30%,#fff 0%,#ff9dbb 48%,#ff2f66 100%);
+         box-shadow:0 0 10px rgba(255,63,111,.85);
+         animation:spark var(--d,.95s) cubic-bezier(.14,.62,.28,1) forwards}
+  .spark.hp{width:auto;height:auto;background:none;box-shadow:none;color:#ffc4d5;
+            font-size:calc(var(--sz,7px) * 2.1);line-height:1;text-shadow:0 0 12px rgba(255,63,111,.9)}
+  @keyframes spark{
+    0%{transform:translate(-50%,-50%) scale(.55);opacity:1}
+    70%{opacity:.9}
+    100%{transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,0px))) scale(.15);opacity:0}
+  }
+  .plusone{position:absolute;left:50%;top:26%;pointer-events:none;
+           font-family:var(--serif);font-size:22px;font-weight:600;color:#ffe3ec;
+           text-shadow:0 0 18px rgba(255,63,111,1),0 2px 10px rgba(0,0,0,.4);
+           animation:plusone 1.05s cubic-bezier(.2,.8,.3,1) forwards}
+  @keyframes plusone{
+    0%{transform:translate(-50%,0) scale(.6);opacity:0}
+    22%{transform:translate(-50%,-14px) scale(1.1);opacity:1}
+    100%{transform:translate(-50%,-88px) scale(.95);opacity:0}
+  }
+
+  @media (max-height:660px){
+    .count-block{margin-top:12px}
+    .heart-wrap{width:min(52vw,214px)}
+    .hint{font-size:12px}
+    .card{padding:26px 22px 22px}
+    .card h1{font-size:25px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important;animation-iteration-count:1 !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="vig"></i>
+</div>
+<div class="flash" id="flash"></div>
+<div class="hearts" id="hearts"></div>
+
+<!-- 打开前 -->
+<div class="intro" id="intro">
+  <div class="card">
+    <div class="seal">卢</div>
+    <p class="to">TO · <b data-her>唐千惠</b></p>
+    <h1>这辈子的心<br>先放在你这里</h1>
+    <p class="sub">来自 <b data-him>卢东逸</b> 的一颗心<br>点一下，就记下你想我的一次</p>
+    <button class="btn" id="openBtn">轻轻打开 ❤</button>
+  </div>
+</div>
+
+<!-- 主界面 -->
+<main class="stage" id="stage">
+  <header class="head">
+    <div class="names"><span data-him>卢东逸</span><i class="amp">♡</i><span data-her>唐千惠</span></div>
+    <button class="sound" id="soundBtn" aria-label="心跳声" aria-pressed="false">♪</button>
+  </header>
+
+  <section class="count-block">
+    <p class="count-label"><span data-her>唐千惠</span> 想念 <span data-him>卢东逸</span></p>
+    <div class="count"><b id="count">0</b><em>次</em></div>
+    <p class="count-sub">今天 <b id="todayCount">0</b> 次 · 最近一次 <b id="lastTime">—</b></p>
+  </section>
+
+  <section class="heart-stage">
+    <div class="heart-wrap" id="heartWrap">
+      <div class="halo"></div>
+      <button class="heart-btn" id="heartBtn" aria-label="点击爱心，记下这一次想念">
+        <svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="gHeart" cx="34%" cy="20%" r="88%">
+              <stop offset="0%" stop-color="#ffd6e3"/>
+              <stop offset="16%" stop-color="#ff8fb3"/>
+              <stop offset="44%" stop-color="#ff2f66"/>
+              <stop offset="74%" stop-color="#cc0b44"/>
+              <stop offset="100%" stop-color="#760428"/>
+            </radialGradient>
+            <radialGradient id="gDepth" cx="66%" cy="86%" r="66%">
+              <stop offset="0%" stop-color="#5e001c" stop-opacity=".55"/>
+              <stop offset="55%" stop-color="#5e001c" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#5e001c" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="gRim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff" stop-opacity=".5"/>
+              <stop offset="38%" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="blur3" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3"/>
+            </filter>
+            <filter id="blur7" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+          </defs>
+          <path d="M100 178C44 136 10 104 10 68 10 38 34 16 62 16c18 0 32 10 38 26 6-16 20-26 38-26 28 0 52 22 52 52 0 36-34 68-90 110z"
+                fill="url(#gHeart)"/>
+          <path d="M100 178C44 136 10 104 10 68 10 38 34 16 62 16c18 0 32 10 38 26 6-16 20-26 38-26 28 0 52 22 52 52 0 36-34 68-90 110z"
+                fill="url(#gDepth)"/>
+          <g filter="url(#blur7)" opacity=".55">
+            <ellipse cx="60" cy="44" rx="26" ry="11" fill="url(#gRim)" transform="rotate(-28 60 44)"/>
+          </g>
+          <g filter="url(#blur3)" opacity=".55">
+            <ellipse cx="58" cy="43" rx="15" ry="7" fill="#fff" transform="rotate(-28 58 43)"/>
+          </g>
+          <ellipse cx="66" cy="56" rx="5" ry="9" fill="#fff" opacity=".22"
+                   transform="rotate(-30 66 56)" filter="url(#blur3)"/>
+          <path d="M100 178C44 136 10 104 10 68 10 38 34 16 62 16c18 0 32 10 38 26 6-16 20-26 38-26 28 0 52 22 52 52 0 36-34 68-90 110z"
+                fill="none" stroke="rgba(255,240,245,.13)" stroke-width=".9"/>
+        </svg>
+      </button>
+    </div>
+    <p class="hint"><span>点一下这颗心，我就记你一次</span></p>
+  </section>
+
+  <footer class="foot">
+    <button class="rec-btn" id="recBtn">想念记录 <b id="recCount">0</b></button>
+    <p class="byline">永远爱你的 · <span data-him>卢东逸</span></p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="mask" id="mask"></div>
+<aside class="sheet" id="sheet" aria-hidden="true">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <div>
+      <h2>想念记录</h2>
+      <span id="sheetSub">每一次，都被记下了</span>
+    </div>
+    <button class="close" id="closeBtn" aria-label="关闭">✕</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stTotal">0</b><span>总次数</span></div>
+    <div class="stat"><b id="stDays">0</b><span>想念天数</span></div>
+    <div class="stat"><b id="stLast">—</b><span>最近一次</span></div>
+  </div>
+  <div class="list" id="list"></div>
+  <div class="sheet-foot">— 这一颗心，只给你 —</div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var params = new URLSearchParams(location.search);
+  var HER = params.get('to') || '唐千惠';
+  var HIM = params.get('from') || '卢东逸';
+
+  // 名字
+  document.querySelectorAll('[data-her]').forEach(function (el) { el.textContent = HER; });
+  document.querySelectorAll('[data-him]').forEach(function (el) { el.textContent = HIM; });
+
+  var KEY = 'heart_for_' + HER + '_v1';
+  var state = { taps: [], id: '' };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && Array.isArray(saved.taps)) state.taps = saved.taps.filter(function (t) {
+        return typeof t === 'number' && isFinite(t);
+      });
+      if (saved && saved.id) state.id = saved.id;
+    }
+  } catch (e) {}
+  if (!state.id) state.id = 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  save();
+
+  /* ---------------- 时间 ---------------- */
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function clock(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); }
+  function hm(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function md(d) { return (d.getMonth() + 1) + '月' + d.getDate() + '日'; }
+  function sameDay(a, b) {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+  function dayLabel(d) {
+    var now = new Date();
+    if (sameDay(d, now)) return '今天';
+    var y = new Date(now.getTime() - 86400000);
+    if (sameDay(d, y)) return '昨天';
+    return md(d) + ' 周' + '日一二三四五六'.charAt(d.getDay());
+  }
+
+  /* ---------------- 里程碑 ---------------- */
+  var MILESTONES = {
+    1: '第一次。这颗心，从这一刻开始有你了',
+    2: '第二次。我好像有点上瘾',
+    3: '三次了。你是不是也在想我',
+    5: '五次。都记下了，一次都没漏',
+    6: '六次。六六大顺，你也要顺顺利利',
+    7: '七次。像心跳一样，停不下来',
+    8: '八次。我在这头，跟着你的手指一下一下跳',
+    9: '九次。快十次了，我一直数着呢',
+    10: '十次。这十次，我都当成你在抱我',
+    20: '二十次。心都被你点热了',
+    30: '三十次。三千宠爱在一身，说的就是你',
+    50: '五十次。半个百，剩下的我陪你走完',
+    52: '五十二次。正好是我爱你的意思',
+    66: '六十六次。顺顺利利，也甜甜蜜蜜',
+    88: '八十八次。发发，什么都给你',
+    99: '九十九次。长长久久',
+    100: '一百次。' + HER + '，我是不是已经被你想熟了',
+    131: '一百三十一次。一生一世的开头',
+    200: '两百次。够不够？不够就继续点',
+    300: '三百次。我在这儿，哪儿也不去',
+    400: '四百次。四百年以后还想被你点',
+    500: '五百次。再过二十次就是 520 了',
+    520: '五百二十次。这句不用说出口，你也知道',
+    600: '六百次。手指累不累，换我来',
+    777: '七百七十七次。幸运都被你点出来了',
+    888: '八百八十八次。全都给你',
+    999: '九百九十九次。差一次就一千了',
+    1000: '一千次。' + HER + '，我认输了，我全都给你',
+    1314: '一千三百一十四次。一生一世。够了，别再点了，我心疼你的手'
+  };
+
+  /* ---------------- 音效 ---------------- */
+  var ac = null, soundOn = false;
+  function heartbeat() {
+    if (!soundOn) return;
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      ac = ac || new Ctx();
+      if (ac.state === 'suspended') ac.resume();
+      var t = ac.currentTime;
+      [[73, 0, .16], [57, .17, .22]].forEach(function (b) {
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(b[0], t + b[1]);
+        o.frequency.exponentialRampToValueAtTime(b[0] * .58, t + b[1] + b[2]);
+        g.gain.setValueAtTime(0.0001, t + b[1]);
+        g.gain.linearRampToValueAtTime(.16, t + b[1] + .02);
+        g.gain.exponentialRampToValueAtTime(.0001, t + b[1] + b[2]);
+        o.connect(g); g.connect(ac.destination);
+        o.start(t + b[1]); o.stop(t + b[1] + b[2] + .03);
+      });
+    } catch (e) {}
+  }
+
+  /* ---------------- 渲染 ---------------- */
+  function render(animate) {
+    var total = state.taps.length;
+    var countEl = $('#count');
+    countEl.textContent = total;
+    if (animate) {
+      countEl.classList.remove('bump');
+      void countEl.offsetWidth;
+      countEl.classList.add('bump');
+    }
+    $('#recCount').textContent = total;
+
+    var now = new Date();
+    var today = 0;
+    state.taps.forEach(function (t) { if (sameDay(new Date(t), now)) today++; });
+    $('#todayCount').textContent = today;
+    $('#lastTime').textContent = total ? hm(new Date(state.taps[total - 1])) : '—';
+
+    $('#stTotal').textContent = total;
+    var days = {};
+    state.taps.forEach(function (t) {
+      var d = new Date(t);
+      days[d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate()] = 1;
+    });
+    var dayCount = Object.keys(days).length;
+    $('#stDays').textContent = dayCount;
+    $('#stLast').textContent = total ? hm(new Date(state.taps[total - 1])) : '—';
+    $('#sheetSub').textContent = dayCount > 1
+      ? '在 ' + dayCount + ' 天里，想了我 ' + total + ' 次'
+      : '每一次，都被记下了';
+
+    // 列表
+    var list = $('#list');
+    if (!total) {
+      list.innerHTML = '<div class="empty"><b>♡</b>还没有记录<br>去点一下那颗心吧</div>';
+      return;
+    }
+    var groups = [], map = {};
+    for (var i = total - 1; i >= 0; i--) {
+      var d = new Date(state.taps[i]);
+      var k = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+      if (!map[k]) { map[k] = { date: d, times: [] }; groups.push(map[k]); }
+      map[k].times.push({ d: d, n: i + 1 });
+    }
+    var html = '';
+    groups.forEach(function (g) {
+      html += '<div class="day">' + dayLabel(g.date) + '<em>' + md(g.date) + ' · ' + g.times.length + ' 次</em></div>';
+      g.times.forEach(function (it) {
+        html += '<div class="rec"><i class="dot"></i><span class="t">' + clock(it.d) + '</span>' +
+                '<span class="i">第 ' + it.n + ' 次</span></div>';
+      });
+    });
+    list.innerHTML = html;
+  }
+
+  /* ---------------- 交互特效 ---------------- */
+  function burst(big, noPlus) {
+    var wrap = $('#heartWrap');
+    var n = big ? 30 : 13;
+    for (var i = 0; i < n; i++) {
+      var s = document.createElement('i');
+      var isHeart = Math.random() < .3;
+      s.className = 'spark' + (isHeart ? ' hp' : '');
+      if (isHeart) s.textContent = '♥';
+      var a = Math.random() * Math.PI * 2;
+      var dist = (big ? 110 : 62) + Math.random() * (big ? 150 : 72);
+      s.style.setProperty('--dx', (Math.cos(a) * dist).toFixed(1) + 'px');
+      s.style.setProperty('--dy', (Math.sin(a) * dist).toFixed(1) + 'px');
+      s.style.setProperty('--sz', (isHeart ? 5 + Math.random() * 6 : 4 + Math.random() * 7).toFixed(1) + 'px');
+      s.style.setProperty('--d', (.72 + Math.random() * .55).toFixed(2) + 's');
+      s.style.left = (44 + Math.random() * 12).toFixed(1) + '%';
+      s.style.top = (44 + Math.random() * 12).toFixed(1) + '%';
+      wrap.appendChild(s);
+      (function (el) { setTimeout(function () { el.remove(); }, 1500); })(s);
+    }
+    var plus = document.createElement('i');
+    plus.className = 'plusone';
+    plus.textContent = '+1';
+    if (!noPlus) {
+      $('#heartWrap').appendChild(plus);
+      setTimeout(function () { plus.remove(); }, 1150);
+    }
+  }
+
+  var toastTimer = null;
+  function toast(html, ms) {
+    var t = $('#toast');
+    t.innerHTML = html;
+    t.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('on'); }, ms || 2100);
+  }
+
+  function flash() {
+    var f = $('#flash');
+    f.classList.remove('on');
+    void f.offsetWidth;
+    f.classList.add('on');
+  }
+
+  /* ---------------- 点击记录 ---------------- */
+  var syncing = false;
+  function tap() {
+    var now = Date.now();
+    state.taps.push(now);
+    save();
+    render(true);
+    burst(false);
+    flash();
+    heartbeat();
+
+    var wrap = $('#heartWrap');
+    wrap.classList.remove('pop');
+    void wrap.offsetWidth;
+    wrap.classList.add('pop');
+
+    if (navigator.vibrate) { try { navigator.vibrate(11); } catch (e) {} }
+
+    var n = state.taps.length;
+    var poem = MILESTONES[n];
+    if (poem) {
+      burst(true);
+      flash();
+      toast('<b>第 ' + n + ' 次</b> · ' + md(new Date(now)) + ' ' + hm(new Date(now)) +
+            '<span class="poem">' + poem + '</span>', 3400);
+    } else {
+      toast('<b>第 ' + n + ' 次</b> · ' + md(new Date(now)) + ' ' + hm(new Date(now)) + ' 已记下');
+    }
+    sync(now);
+  }
+
+  function sync(ts) {
+    if (!/^https?:$/.test(location.protocol)) return;
+    try {
+      fetch('api/tap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ts: ts, id: state.id }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  /* ---------------- 打开 ---------------- */
+  function openHeart() {
+    var intro = $('#intro');
+    intro.classList.add('gone');
+    setTimeout(function () {
+      intro.style.display = 'none';
+      $('#stage').classList.add('show');
+      render(false);
+    }, 480);
+    setTimeout(function () {
+      // 打开后的一颗小彩蛋
+      burst(true, true);
+    }, 900);
+  }
+
+  /* ---------------- 绑定 ---------------- */
+  $('#openBtn').addEventListener('click', openHeart);
+
+  var heart = $('#heartBtn');
+  var lastTap = 0;
+  function onHeart(ev) {
+    if (ev) ev.preventDefault();
+    var now = Date.now();
+    if (now - lastTap < 220) return; // 防止 X5 双击重复触发
+    lastTap = now;
+    tap();
+  }
+  if (window.PointerEvent) {
+    heart.addEventListener('pointerdown', onHeart);
+  } else {
+    heart.addEventListener('touchstart', onHeart, { passive: false });
+    heart.addEventListener('click', function (e) { e.preventDefault(); });
+  }
+
+  $('#soundBtn').addEventListener('click', function () {
+    soundOn = !soundOn;
+    this.classList.toggle('on', soundOn);
+    this.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+    this.textContent = soundOn ? '♫' : '♪';
+    if (soundOn) heartbeat();
+  });
+
+  var mask = $('#mask'), sheet = $('#sheet');
+  function openSheet() {
+    mask.classList.add('on');
+    sheet.classList.add('on');
+    sheet.setAttribute('aria-hidden', 'false');
+    render(false);
+  }
+  function closeSheet() {
+    mask.classList.remove('on');
+    sheet.classList.remove('on');
+    sheet.setAttribute('aria-hidden', 'true');
+  }
+  $('#recBtn').addEventListener('click', openSheet);
+  $('#closeBtn').addEventListener('click', closeSheet);
+  mask.addEventListener('click', closeSheet);
+
+  /* ---------------- 飘浮的心 ---------------- */
+  (function () {
+    var box = $('#hearts');
+    var glyphs = ['♥', '♡', '❥'];
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 14; i++) {
+      var el = document.createElement('span');
+      el.className = 'fh';
+      el.textContent = glyphs[i % glyphs.length];
+      el.style.left = (Math.random() * 96).toFixed(1) + '%';
+      el.style.fontSize = (9 + Math.random() * 15).toFixed(0) + 'px';
+      el.style.animationDuration = (13 + Math.random() * 14).toFixed(1) + 's';
+      el.style.animationDelay = (-Math.random() * 22).toFixed(1) + 's';
+      el.style.setProperty('--sway', ((Math.random() * 2 - 1) * 40).toFixed(0) + 'px');
+      el.style.opacity = (.2 + Math.random() * .5).toFixed(2);
+      frag.appendChild(el);
+    }
+    box.appendChild(frag);
+  })();
+
+  render(false);
+
+  // 打开一次之后，就算对方的电脑关机 / 断网，她也能继续点（离线缓存）
+  if ('serviceWorker' in navigator && /^https:$/.test(location.protocol)) {
+    try {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    } catch (e) {}
+  }
+
+  // 来过的人（或 ?nointro=1）直接进场
+  if (params.get('nointro') === '1' || state.taps.length) {
+    var intro = $('#intro');
+    intro.style.display = 'none';
+    $('#stage').classList.add('show');
+  }
+})();
+</script>
+</body>
+</html>
