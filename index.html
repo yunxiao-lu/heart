@@ -7,6 +7,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="description" content="卢东逸送给唐千惠的一颗心，每点一下，就记下她想他的一次。">
 <title>卢东逸送给唐千惠的一颗心 ♡</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='54'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --rose:#ff3f6f;
@@ -585,7 +586,7 @@
   }
 
   /* ---------------- 点击记录 ---------------- */
-  var syncing = false;
+  var syncOk = true;
   function tap() {
     var now = Date.now();
     state.taps.push(now);
@@ -616,15 +617,16 @@
   }
 
   function sync(ts) {
-    if (!/^https?:$/.test(location.protocol)) return;
+    if (!syncOk || !/^https?:$/.test(location.protocol)) return;
     try {
       fetch('api/tap', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ts: ts, id: state.id }),
         keepalive: true
-      }).catch(function () {});
-    } catch (e) {}
+      }).then(function (r) { if (!r.ok) syncOk = false; })
+        .catch(function () { syncOk = false; });
+    } catch (e) { syncOk = false; }
   }
 
   /* ---------------- 打开 ---------------- */
